@@ -9,6 +9,9 @@ public class Item  {
     public int Value { get; set; }
     public string Slug { get; set; }
     public Sprite Sprite { get; set; }
+    public bool Selected { get; set; }//TODO change selected with uniqe number
+    public int Amount { get; set; }
+    public GameObject Parent { get; set; }
 
     public Item() {
         this.ID = -1;
@@ -23,6 +26,8 @@ public class Item  {
         this.Value = value;
         this.Slug = slug;
         this.Sprite = Resources.Load<Sprite>("Sprites/" + Slug);
+        this.Selected = false;
+        this.Amount = 1;
     }
 
 

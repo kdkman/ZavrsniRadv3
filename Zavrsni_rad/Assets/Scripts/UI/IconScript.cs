@@ -2,26 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 
-public class IconScript : MonoBehaviour 
+public class IconScript : MonoBehaviour ,IPointerClickHandler
 {
-    private Image img;
+    public GameObject button;
+    private Player_input player;
 
-
-    public void OnEnter() {
-        //TODO open player inevenotry
-        print("Hey");
+    public void Awake()
+    {
+        player = GameObject.Find("Player").GetComponent<Player_input>();
     }
 
-    // Use this for initialization
-    void Awake () {
-        img = gameObject.GetComponent<Image>();
-        
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        player.Toggle();//turn off or on so duble - = + 
+     
+        if (!player.invenotry_Canvas.activeSelf) { player.Toggle(); }//if inventory is open close it an open (buy or sell)
+        button.SetActive(true);
+    }
+
+
 }
