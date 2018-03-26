@@ -6,6 +6,8 @@ using UnityEngine.EventSystems;
 
 public class CameraRoation : MonoBehaviour {
 
+   
+
     private const float Y_Angle_MIN = 0f;//min look angle
     private const float Y_Angle_MAX = 50f;//max look angle
 
@@ -17,7 +19,12 @@ public class CameraRoation : MonoBehaviour {
 
     private Camera cam;//Main camera
     public GameObject arrow;
-    private GameObject arrowRef=null;
+    [HideInInspector]
+    public GameObject arrowRef=null;
+    public bool attacking = false;
+
+    private bool canCreate = true;
+
     private int numArrows=0;
 
     private float distance = 10f;
@@ -32,7 +39,7 @@ public class CameraRoation : MonoBehaviour {
     private GameObject player;
     private float playerArrowDist;
 
-    private MarketUI marketUIRef;
+
 
     [HideInInspector]
     public float zRefrence;
@@ -46,8 +53,7 @@ public class CameraRoation : MonoBehaviour {
         cam = Camera.main;
         agent = GameObject.Find("Player").GetComponent<NavMeshAgent>();
         player = GameObject.Find("Player");
-        marketUIRef = GameObject.Find("UI").GetComponent<MarketUI>();
-
+     
 
     }
 
@@ -98,9 +104,9 @@ public class CameraRoation : MonoBehaviour {
         //TODO fix backword movemnt 
         var z = Input.GetAxis("Vertical") * Time.deltaTime * 10.0f;
 
-        if (x != 0 || z != 0)
+        if (x != 0 || z != 0 && !attacking)
         {
-            agent.Stop();
+            agent.isStopped = true;
             Destroy(arrowRef);
             player.transform.Rotate(0, x, 0);
             player.transform.Translate(0, 0, z);
@@ -122,21 +128,22 @@ public class CameraRoation : MonoBehaviour {
     }
 
     private void PlayerMove_PnC()//Player Point and Click movement
-    {
-             agent.Resume(); 
+    {       
+            
+            agent.isStopped = false;
             RaycastHit hitground;
             if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hitground, 1000))//1000 is how far hit can be
             {
                 if (hitground.transform.gameObject.layer == 8) //if hitting NPCs on layer 8
                 {
-                    agent.Stop();
+                    agent.isStopped = true;
                     if (arrowRef != null) { Destroy(arrowRef); }
                 }
                 else
                 {
                     if (arrowRef != null) { Destroy(arrowRef); }    //desotry old ref 
                     if (!IsPointerOverUIObject())
-                    {
+                {
                         arrowRef = Instantiate(arrow);                  //add new object and ref to it 
                         agent.destination = hitground.point;
                         arrowRef.transform.position = hitground.point;
@@ -150,14 +157,16 @@ public class CameraRoation : MonoBehaviour {
     //looks for current event in this case mouse click if its over a UI it will return true
     private bool IsPointerOverUIObject() 
     {
+   
         PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current);          //Get type of current event
+        
         eventDataCurrentPosition.position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);  //take postion
         List<RaycastResult> results = new List<RaycastResult>();                                        //create list container
         EventSystem.current.RaycastAll(eventDataCurrentPosition, results);                              //puts current event raycast resulits in list
+
+
         return results.Count > 0;                                                                       //bool
     }
-
-
 }
 
 

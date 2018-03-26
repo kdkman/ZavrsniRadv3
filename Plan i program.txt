@@ -14,13 +14,13 @@
 7. Add player Invenotry System. #till 17.3
 8. Add Npc Inventory System + Buy and sell option. #till 19.3 #MAYBE NEED
 9. Add Inventory UI #till 20.3				      #TO MERGE AND RIVESE
-10. Allaroudn test of a project.  #till 21.3 
+10. Allaroudn test of a project.  #till 21.3  !!! NEED FIXING !!!
 	PROJECT REVSION v2.  #till 21.3
 
 
 	COMBAT (RLE or Turn Base)
 
-11. Combat animation for player. #till 23.3
+11. Combat animation for player. #till 23.3 //COMPLETED
 12. NPC enemys and they take player damage. #till 25.3 
 13. NPC enemys deal damage to Player + Enemy aniamtions. #till 27.3
  	! NEED TO DECIDE WHICH APPROACH !

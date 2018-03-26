@@ -8,19 +8,31 @@ using UnityEngine.EventSystems;
 public class IconScript : MonoBehaviour ,IPointerClickHandler
 {
     public GameObject button;
-    private Player_input player;
+    public Player_input player;
+    public MarketUI market;
 
-    public void Awake()
-    {
-        player = GameObject.Find("Player").GetComponent<Player_input>();
-    }
+
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        player.Toggle();//turn off or on so duble - = + 
-     
-        if (!player.invenotry_Canvas.activeSelf) { player.Toggle(); }//if inventory is open close it an open (buy or sell)
-        button.SetActive(true);
+
+        if (button.name == "Buy")
+        {
+
+    
+            player.invUI.SetActive(false);
+            player.sellButton.SetActive(false);
+            market.Toggle();
+        }
+        if(button.name == "Sell")
+        {
+       
+            market.gameObject.transform.GetChild(0).gameObject.SetActive(false);
+            market.gameObject.transform.GetChild(1).GetChild(0).gameObject.SetActive(false);
+            player.Toggle();
+            player.sellButton.SetActive(true);
+           
+        }
     }
 
 

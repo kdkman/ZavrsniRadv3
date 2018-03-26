@@ -9,6 +9,8 @@ public class CharacterAnimator : MonoBehaviour {
     Animator animator;
     NavMeshAgent agent;
 
+   
+
     CameraRoation camScriptRef;
 
     // Use this for initialization
@@ -24,7 +26,26 @@ public class CharacterAnimator : MonoBehaviour {
 
 
         AnimationForMovemnt(agent.isStopped);
+        if (Input.GetKey(KeyCode.Alpha1))
+        {
+            animator.SetInteger("Att", 1);
 
+            agent.ResetPath();
+            Destroy(camScriptRef.arrowRef);
+            camScriptRef.attacking = true;
+        }
+
+        if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.8f && animator.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
+        {
+            camScriptRef.attacking = false;
+            animator.SetInteger("Att", 0);
+
+        }
+        else
+        {
+            
+            
+        }
 
     }
 

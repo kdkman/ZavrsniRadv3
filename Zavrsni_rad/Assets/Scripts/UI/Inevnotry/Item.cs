@@ -12,15 +12,22 @@ public class Item  {
     public bool Selected { get; set; }//TODO change selected with uniqe number
     public int Amount { get; set; }
     public GameObject Parent { get; set; }
+    public bool Stackable { get; set; }
+    public int GetUniNum() { return uniNum; }
+
+    private int uniNum;
+    private static int numOfItems = 0;
 
     public Item() {
         this.ID = -1;
         this.Slug = "empty";
         this.Sprite = Resources.Load<Sprite>("Sprites/" + Slug);
+        numOfItems += 1;
     }
 
-    public Item(int ID, string title, int value, string slug)
+    public Item(int ID, string title, int value, string slug,bool stackable)
     {
+        numOfItems += 1;
         this.ID = ID;
         this.Title = title;
         this.Value = value;
@@ -28,6 +35,8 @@ public class Item  {
         this.Sprite = Resources.Load<Sprite>("Sprites/" + Slug);
         this.Selected = false;
         this.Amount = 1;
+        this.Stackable = stackable;
+        uniNum = ID * 100 + numOfItems;
     }
 
 

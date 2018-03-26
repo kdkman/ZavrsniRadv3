@@ -8,7 +8,6 @@ public class Slot_Item : MonoBehaviour ,IPointerClickHandler {//script is only a
 
     [HideInInspector]
     public Item item;
-    private Sell sell;
     private  List<Item> selectedItems;
     private Player_input invenotryOnOff;
     [HideInInspector]
@@ -38,7 +37,7 @@ public class Slot_Item : MonoBehaviour ,IPointerClickHandler {//script is only a
         print("Begingi: \n");
         for (int i = 0; i < selectedItems.Count; i++)
         {
-            print(selectedItems[i].Title + " is on id " + selectedItems[i].ID + " selected: " + selectedItems[i].Selected);
+            print(selectedItems[i].Title + " is on id " + selectedItems[i].ID + " selected: " + selectedItems[i].Selected + " has amount " +selectedItems[i].Amount);
         }
         print("End: \n");
     }
@@ -47,12 +46,12 @@ public class Slot_Item : MonoBehaviour ,IPointerClickHandler {//script is only a
 
     private void ToggelItem(Item item)
     {
-        if (item == null) { return; }
+        if (item == null || item.ID==0) { return; }
         Color help = this.GetComponent<Image>().color;
 
         for (int i = 0; i < selectedItems.Count; i++) //go through everyselceted obj
         {
-            if((selectedItems[i].Selected == item.Selected) && (selectedItems[i].ID == item.ID))//if its selected and has the right ID
+            if((selectedItems[i].Selected == item.Selected) && (selectedItems[i].GetUniNum() == item.GetUniNum()))//if its selected and has the right ID
             {
                 selectedItems[i].Selected = false; //remove selected
                 selectedItems.RemoveAt(i); // remove it form list of selected objects

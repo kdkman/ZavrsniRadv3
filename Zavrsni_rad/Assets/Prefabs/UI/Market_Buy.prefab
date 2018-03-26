@@ -42,6 +42,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 0}
+  player: {fileID: 0}
+  market: {fileID: 0}
 --- !u!114 &114023588797023224
 MonoBehaviour:
   m_ObjectHideFlags: 1
