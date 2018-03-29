@@ -22,14 +22,16 @@ public class CameraRoation : MonoBehaviour {
     [HideInInspector]
     public GameObject arrowRef=null;
     public bool attacking = false;
+    public bool lockCamera = false;
 
     private bool canCreate = true;
 
     private int numArrows=0;
 
     private float distance = 10f;
-    private float currentX = 0f;
-    private float currentY = 0f;
+    [HideInInspector]
+    public float currentX = 0f;
+    public float currentY = 0f;
     private float sesivityX = 4f;
     private float sesivityY = 1f;
 
@@ -79,8 +81,16 @@ public class CameraRoation : MonoBehaviour {
         distance += mouseScroll.y;
         distance = Mathf.Clamp(distance, Y_CamDistance_MIN, Y_CamDistance_MAX);//must be between 2 value 
 
-        if (Input.GetMouseButtonDown(0)){ PlayerMove_PnC(); }
-        PlayerMove_WASD();
+        if (!lockCamera) {
+            if (Input.GetMouseButtonDown(0)) { PlayerMove_PnC(); }
+            PlayerMove_WASD();
+        }
+        else
+        {
+            Destroy(arrowRef);
+            agent.isStopped = true;
+        }
+        
 
 
 
@@ -88,13 +98,22 @@ public class CameraRoation : MonoBehaviour {
 
     //setts camera begind player
     private void LateUpdate()
-    {
-        Vector3 dir = new Vector3(0, 0, -distance);
-        Quaternion rotation = Quaternion.Euler(currentY, currentX, 0);//angle where player is looking at
-        camTransform.position = lookAt.position + rotation * dir;// putting camera behind the player by distance
+    {   if (!lockCamera)
+        {
+            Vector3 dir = new Vector3(0, 0, -distance);
+            Quaternion rotation = Quaternion.Euler(currentY, currentX, 0);//angle where player is looking at
+            camTransform.position = lookAt.position + rotation * dir;// putting camera behind the player by distance
 
-        camTransform.LookAt(lookAt.position);//cam look at destiantion
-        camTransform.position = new Vector3(camTransform.position.x, camTransform.position.y + 2, camTransform.position.z);
+            camTransform.LookAt(lookAt.position);//cam look at destiantion
+            camTransform.position = new Vector3(camTransform.position.x, camTransform.position.y + 2, camTransform.position.z);
+        }
+    }
+
+    public void CamOverTheSholeder()
+    {
+
+        Camera.main.transform.position = GameObject.Find("OverSholderCam").transform.position;
+        Camera.main.transform.rotation = GameObject.Find("OverSholderCam").transform.rotation;
 
     }
 

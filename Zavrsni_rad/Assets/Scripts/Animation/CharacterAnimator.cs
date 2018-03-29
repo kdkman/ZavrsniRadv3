@@ -41,11 +41,7 @@ public class CharacterAnimator : MonoBehaviour {
             animator.SetInteger("Att", 0);
 
         }
-        else
-        {
-            
-            
-        }
+     
 
     }
 

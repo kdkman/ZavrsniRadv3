@@ -21,7 +21,7 @@
 	COMBAT (RLE or Turn Base)
 
 11. Combat animation for player. #till 23.3 //COMPLETED
-12. NPC enemys and they take player damage. #till 25.3 
+12. NPC enemys and they take player damage. #till 25.3 //COMPLETED
 13. NPC enemys deal damage to Player + Enemy aniamtions. #till 27.3
  	! NEED TO DECIDE WHICH APPROACH !
 14. Combat Player UI + Skill base system. #till 29.3
